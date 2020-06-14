@@ -1,12 +1,11 @@
 package thekiddos.j2mf.sfgpetclinic.services;
 
-import java.util.Optional;
 import java.util.Set;
 
 public interface CrudService<TYPE, ID_TYPE> {
-    Optional<TYPE> findById( ID_TYPE id );
+    TYPE findById( ID_TYPE id );
 
-    <SUBTYPE extends TYPE> SUBTYPE save( SUBTYPE entity );
+    TYPE save( TYPE entity );
 
     Set<TYPE> findAll();
 
