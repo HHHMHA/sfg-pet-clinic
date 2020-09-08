@@ -39,6 +39,14 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
     <scm>
         <developerConnection>scm:git:https://github.com/HHHMHA/sfg-pet-clinic.git</developerConnection>
         <url>https://github.com/HHHMHA/sfg-pet-clinic</url>

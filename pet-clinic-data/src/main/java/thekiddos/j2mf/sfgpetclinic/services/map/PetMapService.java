@@ -1,11 +1,11 @@
 package thekiddos.j2mf.sfgpetclinic.services.map;
 
 import thekiddos.j2mf.sfgpetclinic.model.Pet;
-import thekiddos.j2mf.sfgpetclinic.services.CrudService;
+import thekiddos.j2mf.sfgpetclinic.services.PetService;
 
 import java.util.Set;
 
-public class PetMapService extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
     @Override
     public Pet findById( Long id ) {
         return super.findById( id );
