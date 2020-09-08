@@ -1,12 +1,11 @@
 package thekiddos.j2mf.sfgpetclinic.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import thekiddos.j2mf.sfgpetclinic.model.BaseEntity;
 
-public abstract class AbstractMapService<TYPE, ID_TYPE> {
-    protected Map<ID_TYPE, TYPE> map = new HashMap<>();
+import java.util.*;
+
+public abstract class AbstractMapService<TYPE extends BaseEntity, ID_TYPE extends Long> {
+    protected Map<Long, TYPE> map = new HashMap<>();
 
     Set<TYPE> findAll() {
         return new HashSet<>( map.values() );
@@ -16,8 +15,16 @@ public abstract class AbstractMapService<TYPE, ID_TYPE> {
         return map.get( id );
     }
 
-    TYPE save( ID_TYPE id, TYPE entity ) {
-        map.put( id, entity );
+    TYPE save( TYPE entity ) {
+        if ( entity != null ) {
+            if ( entity.getId() == null ) {
+                entity.setId( getNextId() );
+            }
+            map.put( entity.getId(), entity );
+        }
+        else {
+            throw new NullPointerException();
+        }
 
         return entity;
     }
@@ -28,5 +35,11 @@ public abstract class AbstractMapService<TYPE, ID_TYPE> {
 
     void delete( TYPE entity ) {
         map.entrySet().removeIf( entry -> entry.getValue().equals( entity ) );
+    }
+
+    private Long getNextId() {
+        if ( map.size() == 0 )
+            return 1L;
+        return Collections.max( map.keySet() ) + 1;
     }
 }
