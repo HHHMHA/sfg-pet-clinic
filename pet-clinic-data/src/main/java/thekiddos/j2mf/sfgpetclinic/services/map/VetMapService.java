@@ -1,10 +1,12 @@
 package thekiddos.j2mf.sfgpetclinic.services.map;
 
+import org.springframework.stereotype.Service;
 import thekiddos.j2mf.sfgpetclinic.model.Vet;
 import thekiddos.j2mf.sfgpetclinic.services.VetService;
 
 import java.util.Set;
 
+@Service
 public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Vet findById( Long id ) {

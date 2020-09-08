@@ -1,14 +1,13 @@
 package thekiddos.j2mf.sfgpetclinic.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import thekiddos.j2mf.sfgpetclinic.model.Owner;
 import thekiddos.j2mf.sfgpetclinic.model.Vet;
 import thekiddos.j2mf.sfgpetclinic.services.OwnerService;
 import thekiddos.j2mf.sfgpetclinic.services.VetService;
-import thekiddos.j2mf.sfgpetclinic.services.map.OwnerMapService;
-import thekiddos.j2mf.sfgpetclinic.services.map.VetMapService;
 
 @Slf4j
 @Component
@@ -16,9 +15,10 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public DataLoader() {
-        this.ownerService = new OwnerMapService();
-        this.vetService = new VetMapService();
+    @Autowired
+    public DataLoader( OwnerService ownerService, VetService vetService ) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
