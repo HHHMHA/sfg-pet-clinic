@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import thekiddos.j2mf.sfgpetclinic.model.Owner;
+import thekiddos.j2mf.sfgpetclinic.model.Pet;
 import thekiddos.j2mf.sfgpetclinic.model.PetType;
 import thekiddos.j2mf.sfgpetclinic.model.Vet;
 import thekiddos.j2mf.sfgpetclinic.services.OwnerService;
 import thekiddos.j2mf.sfgpetclinic.services.PetTypeService;
 import thekiddos.j2mf.sfgpetclinic.services.VetService;
+
+import java.time.LocalDate;
 
 @Slf4j
 @Component
@@ -39,12 +42,30 @@ public class DataLoader implements CommandLineRunner {
         Owner owner1 = new Owner();
         owner1.setFirstName( "Die" );
         owner1.setLastName( "Hard" );
+        owner1.setAddress( "123" );
+        owner1.setCity( "Batata" );
+        owner1.setTelephone( "123456789" ); // TODO: validate later
+
+        Pet pet1 = new Pet();
+        pet1.setName( "Barker" );
+        pet1.setPetType( dog );
+        pet1.setOwner( owner1 );
+        pet1.setDateOfBirth( LocalDate.now() );
 
         ownerService.save( owner1 );
 
         Owner owner2 = new Owner();
         owner2.setFirstName( "Live" );
         owner2.setLastName( "Easy" );
+        owner2.setAddress( "123" );
+        owner2.setCity( "Batata" );
+        owner2.setTelephone( "123456789" ); // TODO: validate later
+
+        Pet pet2 = new Pet();
+        pet2.setName( "Barker" );
+        pet2.setPetType( cat );
+        pet2.setOwner( owner2 );
+        pet2.setDateOfBirth( LocalDate.now() );
 
         ownerService.save( owner2 );
 
