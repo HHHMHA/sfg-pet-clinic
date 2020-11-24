@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import thekiddos.j2mf.sfgpetclinic.model.Owner;
-import thekiddos.j2mf.sfgpetclinic.model.Pet;
-import thekiddos.j2mf.sfgpetclinic.model.PetType;
-import thekiddos.j2mf.sfgpetclinic.model.Vet;
+import thekiddos.j2mf.sfgpetclinic.model.*;
 import thekiddos.j2mf.sfgpetclinic.services.OwnerService;
 import thekiddos.j2mf.sfgpetclinic.services.PetTypeService;
+import thekiddos.j2mf.sfgpetclinic.services.SpecialitiesService;
 import thekiddos.j2mf.sfgpetclinic.services.VetService;
 
 import java.time.LocalDate;
@@ -20,17 +18,27 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialitiesService specialitiesService;
 
     @Autowired
-    public DataLoader( OwnerService ownerService, VetService vetService, PetTypeService petTypeService ) {
+    public DataLoader( OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialitiesService specialitiesService ) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialitiesService = specialitiesService;
     }
 
     @Override
     public void run( String... args ) throws Exception {
+        if ( databaseEmpty() )
+            loadData();
+    }
 
+    private boolean databaseEmpty() {
+        return petTypeService.findAll().size() == 0;
+    }
+
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName( "Dog" );
         dog = petTypeService.save( dog );
@@ -71,15 +79,25 @@ public class DataLoader implements CommandLineRunner {
 
         log.info( "Loaded owners..." );
 
+        Speciality speciality1 = new Speciality();
+        speciality1.setDescription( "Batata" );
+        speciality1 = specialitiesService.save( speciality1 );
+
         Vet vet1 = new Vet();
         vet1.setFirstName( "Duck" );
         vet1.setLastName( "Shark" );
+        vet1.getSpecialities().add( speciality1 );
 
         vetService.save( vet1 );
+
+        Speciality speciality2 = new Speciality();
+        speciality2.setDescription( "Fries" );
+        speciality2 = specialitiesService.save( speciality2 );
 
         Vet vet2 = new Vet();
         vet2.setFirstName( "Dog" );
         vet2.setLastName( "Cat" );
+        vet2.getSpecialities().add( speciality2 );
 
         vetService.save( vet2 );
 
