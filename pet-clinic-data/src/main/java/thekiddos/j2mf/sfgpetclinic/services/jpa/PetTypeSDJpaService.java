@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import thekiddos.j2mf.sfgpetclinic.model.PetType;
 import thekiddos.j2mf.sfgpetclinic.repositories.PetTypeRepository;
-import thekiddos.j2mf.sfgpetclinic.services.PetService;
+import thekiddos.j2mf.sfgpetclinic.services.PetTypeService;
 
 import java.util.Set;
 import java.util.HashSet;
 
 @Service
 @Profile( value = "jpa")
-public class PetTypeSDJpaService implements PetService {
+public class PetTypeSDJpaService implements PetTypeService {
     private final PetTypeRepository petTypeRepository;
     
     @Autowired
@@ -41,7 +41,7 @@ public class PetTypeSDJpaService implements PetService {
 
     @Override
     void delete( PetType petType ) {
-        petTypeRepository.delete( vet );
+        petTypeRepository.delete( petType );
     }
     
     @Override
